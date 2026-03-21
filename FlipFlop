@@ -1,0 +1,46 @@
+#OtterZ set up a battle with 𝑛
+ monsters in order to increase his combat power. Each monster has a combat power 𝑎𝑖
+ and OtterZ has a combat power of 𝑐
+. He has 𝑘
+ flip flops and can perform the following operations:
+
+Kill an alive monster 𝑖
+ if 𝑎𝑖≤𝑐
+; then 𝑐
+ becomes 𝑐+𝑎𝑖
+.
+Throw a flip flop at an alive monster 𝑖
+; the flip-flop will be broken and the monster will become angrier, then 𝑎𝑖
+ becomes 𝑎𝑖+1
+.
+Help OtterZ obtain the maximum possible 𝑐
+ after the battle.
+
+def flipflop(L,c,k):
+    t=0
+    for i in range(len(L)):
+     if L[i]<c:
+        t=1
+        if k>c-L[i]:
+            c=2*c
+            k=k-c+L[i]
+        else:
+            c=c+L[i]+k
+            k=0
+        L.pop(i)
+        flipflop(L,c,k)
+        break
+     
+    for i in range(len(L)):
+        if L[i]==c:
+            t=1
+            c=c+L[i]
+            L.pop(i)
+            flipflop(L,c,k)
+            break
+     
+     
+    if t==0:
+        return c
+print(flipflop([14,9,11],6,3))
+print(flipflop([20,16,18,16,11],9,2))
